@@ -21,7 +21,6 @@ MT->add_plugin($plugin);
 sub handler {
     my ($eh, $app, $obj) = @_;
     $app->rebuild_entry(Entry => $obj, BuildDependencies => 1);
-    if ($app->config('DeleteFilesAtRebuild')) {
-	$app->publisher->remove_entry_archive_file(Entry => $obj);
-    }
+    $app->publisher->remove_entry_archive_file(Entry => $obj, ArchiveType => 'Individual')
+	if $app->config('DeleteFilesAtRebuild');
 }
